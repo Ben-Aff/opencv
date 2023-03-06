@@ -25,7 +25,11 @@ cv2.waitKey(0)      #等待时间,毫秒级,0表示可以任意键结束
 cv2.destroyAllWindows()
 #保存图片
 cv2.imwrite("指定保存的名字",img)
-#图片的色彩
+#图片的色彩转换
 st=cv.cvtColor(原图片, code[,dst[, dstCn]]
 code如gray=cv.cvtColor(image,cv.COLOR_BGR2GRAY)#BGR TO GRAY
       hsv=cv.cvtColor(image,cv.COLOR_BGR2HSV)#BGR TO HSV
+#图像对象的创建与赋值
+opencv中的图像都是numpy对象
+#图像的形状
+image.shape
