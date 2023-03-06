@@ -1,0 +1,18 @@
+图像由像素点构成
+每个像素点都有值0-255，表示亮度，值越大亮度越大
+图像由R、G、B三个通道构成，黑白图只有一个通道（Opencv中的组成形式是BGR）
+因此图像通常由三个矩阵表示
+位深度：32(支持透明度)、24(不支持透明通道)
+图像的分辨率表示宽和高的像素值
+opencv不支持透明度的读取，都会统一读取为RGB三个通道的
+#读取图片
+img=cv2.imread("图片位置")
+img=cv2.imread("图片位置",cv2.IMREAD_GRAYSCALE)
+#第二个参数表示以灰度图像处理的方式，还可以 cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)的方式读取彩色图片
+#展示图片
+cv2.imshow("展示的名字",img)
+cv2.waitKey(0)      #等待时间,毫秒级,0表示可以任意键结束
+cv2.destroyAllWindows()
+#保存图片
+cv2.imwrite("指定保存的名字",img)
+#图片的
