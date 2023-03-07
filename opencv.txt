@@ -16,33 +16,95 @@ RGB模式为我们经常见到的，被称为真色彩。RGB模式的图像有3�
 当三种基色的值相等是，表现出为灰色，三种颜色都为255即为白色，三种颜色都为0，即为黑色
 RGB模式的图像占用空间要比位图，灰度图都要大，但表现出的细节更加明显
 #读取图片
-img=cv2.imread("图片位置")
-img=cv2.imread("图片位置",cv2.IMREAD_GRAYSCALE)
-#第二个参数表示以灰度图像处理的方式，还可以 cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)的方式读取彩色图片
+img=cv2.imread("参数一",参数二)
+参数一：图片位置
+参数二：cv.IMREAD*COLOR：以彩色模式加载图像，任何图像的透明度都将被忽略。这是默认参数。
+       cv.IMREAD*GRAYSCALE：以灰度模式加载图像
+       cv.IMREAD_UNCHANGED：包括alpha通道的加载图像模式。
 #展示图片
-cv2.imshow("展示的名字",img)
-cv2.waitKey(0)      #等待时间,毫秒级,0表示可以任意键结束
+cv2.imshow("参数一",参数二)
+参数一：显示窗口的名字
+参数二：图像名
+cv2.waitKey(0)
+等待时间,毫秒级,0表示可以任意键结束，用cv.waitKey()给图像绘制留下时间，否则窗口会出现无响应情况，并且图像无法显示出来。
 cv2.destroyAllWindows()
+释放所有窗口
 #保存图片
-cv2.imwrite("指定保存的名字",img)
-#图片的色彩转换
-st=cv.cvtColor(原图片, code[,dst[, dstCn]]
-code如gray=cv.cvtColor(image,cv.COLOR_BGR2GRAY)#BGR TO GRAY
-      hsv=cv.cvtColor(image,cv.COLOR_BGR2HSV)#BGR TO HSV
+cv2.imwrite("参数一",参数二)
+参数一：指定要保存的位置和图片的名字
+参数二：图像名
+#图片的色彩转换空间转换
+OpenCV中有150多种颜色空间转换方法。最广泛使用的转换方法有三种，BGR-RGB、BGR-Gray和BGR-HSV。
+cv.cvtColor(参数一，参数二)
+参数一：图像名
+参数二：图像转换方法
+cv.COLOR_BGR2RGB : BGR to RGB
+cv.COLOR_BGR2GRAY : BGR to Gray
+cv.COLOR_BGR2HSV: BGR to HSV
 #图像对象的创建与赋值
 opencv中的图像都是numpy对象
 #图像的形状
 image.shape
 
 
+#创建空白图像
+(1)参数一=np.zeros((h，w，c),dtype=np.uint8)
+参数一：图像名，常用black
+(2)图像名=np.zeros_like(参数一)
+参数一：要创立相同尺寸的图片变量名
 
 
-#图像中像素的逻辑操作
-cv2.bitwise_or()
-cv2.bitwise_and()
-要求两个图像的形状完全相同
-00001001，图像的像素值
-00001110，图像的像素值
+#图像局部区域显示
+1.ROI=图像名[](python列表切片操作)
+2.空白图像[]=ROI
+
+#创建窗口
+cv2.namedWindow(参数一,参数二)
+参数一：将显示图像/视频的窗口的名称
+参数二：表示窗口大小是自动设置还是可调整。
+
+
+#图像的拷贝操作
+两种方式
+1.使用numpy进行操作：图像1=np.copy(图像2)
+2.直接用：图像1=图像2
+注意：使用numpy的效果会更好
+
+
+#opencv中的自带颜色表
+applyColorMap(输入图像、输出图像、颜色表)
+颜色表：
+
+
+
+
+
+
+
+
+
+
+
+
+
+#图像的四则运算
+OpenCV提供函数把两幅图像相加，或通过numpy操作添加两个图像，如res = img1 + img2。两个图像应该具有相同的大小和类型，或者第二个图像可以是标量值。
+加法：cv.add(图像1，图像2/区域像素值)(增加图片的像素值来使得图片变亮或直接将两幅图片相加融合)
+减法：cv.substract(图像1，图像2/区域像素值)(减少图片的像素值来使得图片变暗或直接将两幅图片相减)
+乘法：cv.multiply(图像1，区域像素值倍数)(增加图片的对比度)
+除法：cv.divide(图像1，区域像素值倍数)(减少图片的对比度)
+注意：使用opencv进行操作，效果会更好
+#图像的混合
+本质也是加法，但是不同的是两幅图像的权重不同，这就会给人一种混合或者透明的感觉。图像混合的计算公式如下：
+g(x) = (1−α)f0(x) + αf1(x)+γ
+cv.addWeighted(图片1,1的权重,图片2,2的权重,γ)
+#图像中像素的逻辑运算
+cv2.bitwise_or(图像1，图像2)，对两张图像的像素值取或操作
+cv2.bitwise_and(图像1，图像2)，对两张图像的像素值取与操作
+
+注意：逻辑运算要求两个图像的形状完全相同
+00001001，图像1的像素值
+00001110，图像2的像素值
 与操作00001000，都变成黑，取反操作11110111
 或操作00001111，都变成白，取反操作11110000
 
@@ -50,6 +112,29 @@ cv2.bitwise_and()
 #图像的通道分离与合并
 (1)使用python中的切片操作
 (2)cv.split()和cv.merge()的配合
+cv2.split(参数一[,参数二])将3通道BGR彩色图像分离为B、G、R 单通道图像(一个三维数组)。
+参数一：图像或nparray多维数组
+参数二：指定的分拆通道（可选）
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #图像色彩空间转换
 
