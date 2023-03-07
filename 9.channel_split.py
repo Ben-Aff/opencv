@@ -7,6 +7,7 @@ def channel_split():
     b1=cv.imread('E:/8.opnecv4/opencv/images/yuan_test.png')
     cv.imshow('input',b1)
     cv.imshow('b1',b1[:,:,2])
+#使用opencv中的split()函数进行分离与合并
     mv=cv.split(b1)
     print(mv)
     mv[0][:,:]=255
